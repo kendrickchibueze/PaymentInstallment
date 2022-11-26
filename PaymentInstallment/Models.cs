@@ -9,9 +9,6 @@ namespace PaymentInstallment
 {
     public class Models
     {
-     
-
-       
 
         //properties
 

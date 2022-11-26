@@ -16,14 +16,10 @@ namespace PaymentInstallment
         private static int _productprice;
         private static CultureInfo _enculture = new CultureInfo("en-US");
 
-        
-        
-        
-        
+
+
         //instance of our model class
         Models models = new Models();
-
-
 
 
         public  static void DailyPayment()
@@ -55,13 +51,13 @@ namespace PaymentInstallment
                 ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].models.date + " you started your payment");
                 ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the daily pay:");
                 pay[i].models.DailyPay = Convert.ToDouble(Console.ReadLine());
-                
+
 
                pay[i].models.NewDailyPay = _productprice - pay[i].models.DailyPay * .05;
                 ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].models.NewDailyPay);
                 _planInput -= 1;
                 ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "\nThe days remaining is " + _planInput--);
-                
+
 
             }
             ColorValidation.PrintColorMessage(ConsoleColor.Cyan,"\nMr Buhari's Record for Daily Pay");
@@ -350,7 +346,7 @@ namespace PaymentInstallment
 
 
 
-       
+
 
 
 
@@ -370,5 +366,5 @@ namespace PaymentInstallment
 
 
 
-  
+
 }
