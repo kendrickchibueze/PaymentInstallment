@@ -14,92 +14,14 @@ namespace PaymentInstallment
         //fields
         private static int _planInput;
         private static int _productprice;
-        private static int _Input;
-        private static string _product;
-
         private static CultureInfo _enculture = new CultureInfo("en-US");
 
-
-
-
-
-        //properties
-
-        public string Product { get; set; }
-        public DateTime date { get; set; }
-
-        //public double ProductPrice{ get; set; }
-        public double DailyPay{ get; set; }
-        public double  WeeklyPay{ get; set; }
-        public double BiWeeklyPay { get; set; }
-
-        public double MonthlyPay { get; set; }
-
-        public double QuarterlyPay { get; set; }
-
-        public double YearlyPay { get; set; }
-        public double NewDailyPay { get; set; }
-        public double NewWeeklyPay { get; set; }
-        public double NewBiWeeklyPay { get; set; }
-        public double NewMonthlyPay { get; set; }
-        public double NewQuarterlyPay { get; set; }
-        public double NewYearlyPay { get; set; }
-
-
-
-
-
-
-        public static void Run()
-            {
-            PrintColorMessage(ConsoleColor.Yellow, "***Welcome to Mr Buhari's Installment App***");
-                planPayments();
-
-
-
-
-
-
-            }
-
-        public static void planPayments()
-        {
-            PrintColorMessage(ConsoleColor.Cyan, "Please choose your payment plan: 1[Daily plan], 2[weekly], 3[BiWeekly],4[Monthly],5[Quarterly], 6[Yearly]");
-            _Input = int.Parse(Console.ReadLine());
-            
-            switch (_Input)
-            {
-                case 1:
-                    PrintColorMessage(ConsoleColor.Yellow, "You have choosen the Daily plan");
-                    DailyPayment();
-
-                    break;
-                case 2:
-                    PrintColorMessage(ConsoleColor.Yellow, "You have chosen the weekly plan");
-                    WeeklyPayment();
-                    break;
-                case 3:
-                    PrintColorMessage(ConsoleColor.Yellow, "You have chosen the Biweekly plan");
-                    BiWeeklyPayment();
-                    break;
-                case 4:
-                    PrintColorMessage(ConsoleColor.Yellow, "You have chosen the Monthly plan");
-                    MonthlyPayment();
-                    break;
-                case 5:
-                    PrintColorMessage(ConsoleColor.Yellow, "You have chosen the Quarterly plan");
-                    QuarterlyPayment();
-                    break;
-                case 6:
-                    PrintColorMessage(ConsoleColor.Yellow, "You have chosen the Yearly Plan");
-                    YearlyPayment();
-                    break;
-                default:
-                    PrintColorMessage(ConsoleColor.Yellow, "You better start with the daily plan");
-                    break;
-
-            }
-        }
+        
+        
+        
+        
+        //instance of our model class
+        Models models = new Models();
 
 
 
@@ -107,11 +29,11 @@ namespace PaymentInstallment
         public  static void DailyPayment()
         {
             _productprice = 5000;
-            PrintColorMessage(ConsoleColor.Yellow, "Choose different products for daily pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
-            PrintColorMessage(ConsoleColor.Yellow, "But you will pay 5% of the price for the daily pay\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for daily pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "But you will pay 5% of the price for the daily pay\n");
 
 
-            PrintColorMessage(ConsoleColor.Yellow, "Enter how many days you wish to complete your payment, atleast from 3 days and above \n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter how many days you wish to complete your payment, atleast from 3 days and above \n");
 
             _planInput = int.Parse(Console.ReadLine());
 
@@ -123,33 +45,33 @@ namespace PaymentInstallment
 
                 Console.WriteLine("Product plan ID : {0} ", i+1);
 
-                PrintColorMessage(ConsoleColor.Yellow, "Product Name : ");
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Product Name : ");
 
-                pay[i].Product = Console.ReadLine();
+                pay[i].models.Product = Console.ReadLine();
 
-                Console.WriteLine("You have chosen " + pay[i].Product + " and the price is " + FormatAmount(_productprice));
+                Console.WriteLine("You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount(_productprice));
 
-                pay[i].date = DateTime.Today;
-                PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].date + " you started your payment");
-                PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the daily pay:");
-                pay[i].DailyPay = Convert.ToDouble(Console.ReadLine());
+                pay[i].models.date = DateTime.Today;
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].models.date + " you started your payment");
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the daily pay:");
+                pay[i].models.DailyPay = Convert.ToDouble(Console.ReadLine());
                 
 
-               pay[i].NewDailyPay = _productprice - pay[i].DailyPay * .05;
-                PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].NewDailyPay);
+               pay[i].models.NewDailyPay = _productprice - pay[i].models.DailyPay * .05;
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].models.NewDailyPay);
                 _planInput -= 1;
-                PrintColorMessage(ConsoleColor.Yellow, "\nThe days remaining is " + _planInput--);
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "\nThe days remaining is " + _planInput--);
                 
 
             }
-            PrintColorMessage(ConsoleColor.Cyan,"\nMr Buhari's Record for Daily Pay");
-            PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
-            PrintColorMessage(ConsoleColor.Cyan, "ID\tName\tDate\tPlandays\tNextPay\tproductprice");
-            PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan,"\nMr Buhari's Record for Daily Pay");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "ID\tName\tDate\tPlandays\tNextPay\tproductprice");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
 
             for(int i = 0; i < _planInput; i++)
             {
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i +1, pay[i].Product, pay[i].date, pay[i].DailyPay, pay[i].NewDailyPay,_productprice);
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i +1, pay[i].models.Product, pay[i].models.date, pay[i].models.DailyPay, pay[i].models.NewDailyPay,_productprice);
 
             }
             Console.ReadLine();
@@ -160,11 +82,11 @@ namespace PaymentInstallment
         {
 
             _productprice = 10000;
-            PrintColorMessage(ConsoleColor.Yellow,"Choose different products for weekly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
-            PrintColorMessage(ConsoleColor.Yellow,"But you will pay 15% of the price for the weekly pay\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow,"Choose different products for weekly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow,"But you will pay 15% of the price for the weekly pay\n");
 
 
-            PrintColorMessage(ConsoleColor.Yellow, "Enter how many weeks you wish to complete your payment\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter how many weeks you wish to complete your payment\n");
 
             _planInput = int.Parse(Console.ReadLine());
 
@@ -176,33 +98,33 @@ namespace PaymentInstallment
 
                 Console.WriteLine("Product plan ID : {0} ", i + 1);
 
-                PrintColorMessage(ConsoleColor.Yellow,"Product Name : ");
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow,"Product Name : ");
 
-                pay[i].Product = Console.ReadLine();
+                pay[i].models.Product = Console.ReadLine();
 
-                PrintColorMessage(ConsoleColor.Yellow,"You have chosen " + pay[i].Product + " and the price is " + FormatAmount(_productprice));
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow,"You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount(_productprice));
 
-                pay[i].date = DateTime.Today;
-                PrintColorMessage(ConsoleColor.Yellow,"Today being " + pay[i].date + " you started your payment");
-                PrintColorMessage(ConsoleColor.Yellow,"Enter the Amount you are willing to start paying for the weekly pay:");
-                pay[i].WeeklyPay = Convert.ToDouble(Console.ReadLine());
+                pay[i].models.date = DateTime.Today;
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow,"Today being " + pay[i].models.date + " you started your payment");
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow,"Enter the Amount you are willing to start paying for the weekly pay:");
+                pay[i].models.WeeklyPay = Convert.ToDouble(Console.ReadLine());
 
 
-                pay[i].NewWeeklyPay = _productprice - pay[i].WeeklyPay * .15;
-                Console.WriteLine("The new daily pay is  " + pay[i].NewWeeklyPay);
+                pay[i].models.NewWeeklyPay = _productprice - pay[i].models.WeeklyPay * .15;
+                Console.WriteLine("The new daily pay is  " + pay[i].models.NewWeeklyPay);
                 _planInput -= 1;
-                PrintColorMessage(ConsoleColor.Yellow,"\nThe days remaining is " + _planInput--);
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow,"\nThe days remaining is " + _planInput--);
 
 
             }
-            PrintColorMessage(ConsoleColor.Cyan,"\nMr Buhari's Record for Weekly Pay");
-            PrintColorMessage(ConsoleColor.Cyan,"-----------------------------------------------------------------------------------------");
-            PrintColorMessage(ConsoleColor.Cyan,"ID\tName\tDate\tPlandays\tNextPay\tproductprice");
-            PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan,"\nMr Buhari's Record for Weekly Pay");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan,"-----------------------------------------------------------------------------------------");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan,"ID\tName\tDate\tPlandays\tNextPay\tproductprice");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
 
             for (int i = 0; i < _planInput; i++)
             {
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].Product, pay[i].date, pay[i].WeeklyPay, pay[i].NewWeeklyPay, _productprice);
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].models.Product, pay[i].models.date, pay[i].models.WeeklyPay, pay[i].models.NewWeeklyPay, _productprice);
 
             }
             Console.ReadLine();
@@ -213,11 +135,11 @@ namespace PaymentInstallment
         {
 
             _productprice = 20000;
-            PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Biweekly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
-            PrintColorMessage(ConsoleColor.Yellow, "But you will pay 25% of the price for the Bi weekly pay\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Biweekly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "But you will pay 25% of the price for the Bi weekly pay\n");
 
 
-            PrintColorMessage(ConsoleColor.Yellow, "Enter how many Bi weeks you wish to complete your payment\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter how many Bi weeks you wish to complete your payment\n");
 
             _planInput = int.Parse(Console.ReadLine());
 
@@ -229,33 +151,33 @@ namespace PaymentInstallment
 
                 Console.WriteLine("Product plan ID : {0} ", i + 1);
 
-                PrintColorMessage(ConsoleColor.Yellow, "Product Name : ");
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Product Name : ");
 
-                pay[i].Product = Console.ReadLine();
+                pay[i].models.Product = Console.ReadLine();
 
-                PrintColorMessage(ConsoleColor.Yellow, "You have chosen " + pay[i].Product + " and the price is " + FormatAmount(_productprice));
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount(_productprice));
 
-                pay[i].date = DateTime.Today;
-                PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].date + " you started your payment");
-                PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the Bi weekly pay:");
-                pay[i].BiWeeklyPay = Convert.ToDouble(Console.ReadLine());
+                pay[i].models.date = DateTime.Today;
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].models.date + " you started your payment");
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the Bi weekly pay:");
+                pay[i].models.BiWeeklyPay = Convert.ToDouble(Console.ReadLine());
 
 
-                pay[i].NewBiWeeklyPay = _productprice - pay[i].BiWeeklyPay * .25;
-                PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].NewBiWeeklyPay);
+                pay[i].models.NewBiWeeklyPay = _productprice - pay[i].models.BiWeeklyPay * .25;
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].models.NewBiWeeklyPay);
                 _planInput -= 1;
-                PrintColorMessage(ConsoleColor.Yellow,"\nThe days remaining is " + _planInput--);
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow,"\nThe days remaining is " + _planInput--);
 
 
             }
-            PrintColorMessage(ConsoleColor.Cyan,"\nMr Buhari's Record for Bi Weekly Pay");
-            PrintColorMessage(ConsoleColor.Cyan,"-----------------------------------------------------------------------------------------");
-            PrintColorMessage(ConsoleColor.Cyan,"ID\tName\tDate\tPlandays\tNextPay\tproductprice");
-            PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan,"\nMr Buhari's Record for Bi Weekly Pay");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan,"-----------------------------------------------------------------------------------------");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan,"ID\tName\tDate\tPlandays\tNextPay\tproductprice");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
 
             for (int i = 0; i < _planInput; i++)
             {
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].Product, pay[i].date, pay[i].BiWeeklyPay, pay[i].NewBiWeeklyPay, _productprice);
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].models.Product, pay[i].models.date, pay[i].models.BiWeeklyPay, pay[i].models.NewBiWeeklyPay, _productprice);
 
             }
             Console.ReadLine();
@@ -264,11 +186,11 @@ namespace PaymentInstallment
         public static void MonthlyPayment()
         {
             _productprice = 40000;
-            PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Monthly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
-            PrintColorMessage(ConsoleColor.Yellow, "But you will pay 35% of the price for the daily pay\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Monthly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "But you will pay 35% of the price for the daily pay\n");
 
 
-            PrintColorMessage(ConsoleColor.Yellow, "Enter how many months you wish to complete your payment\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter how many months you wish to complete your payment\n");
 
             _planInput = int.Parse(Console.ReadLine());
 
@@ -282,31 +204,31 @@ namespace PaymentInstallment
 
                 Console.WriteLine("Product Name : ");
 
-                pay[i].Product = Console.ReadLine();
+                pay[i].models.Product = Console.ReadLine();
 
-                PrintColorMessage(ConsoleColor.Yellow, "You have chosen " + pay[i].Product + " and the price is " + FormatAmount(_productprice));
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount(_productprice));
 
-                pay[i].date = DateTime.Today;
-                PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].date + " you started your payment");
-                PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the Monthly pay:");
-                pay[i].MonthlyPay = Convert.ToDouble(Console.ReadLine());
+                pay[i].models.date = DateTime.Today;
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].models.date + " you started your payment");
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the Monthly pay:");
+                pay[i].models.MonthlyPay = Convert.ToDouble(Console.ReadLine());
 
 
-                pay[i].NewMonthlyPay = _productprice - pay[i].MonthlyPay * .35;
-                PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].NewMonthlyPay);
+                pay[i].models.NewMonthlyPay = _productprice - pay[i].models.MonthlyPay * .35;
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].models.NewMonthlyPay);
                 _planInput -= 1;
-                PrintColorMessage(ConsoleColor.Yellow, "\nThe days remaining is " + _planInput--);
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "\nThe days remaining is " + _planInput--);
 
 
             }
-            PrintColorMessage(ConsoleColor.Cyan, "\nMr Buhari's Record for Monthly Pay");
-            PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
-            PrintColorMessage(ConsoleColor.Cyan,"ID\tName\tDate\tPlandays\tNextPay\tproductprice");
-            PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "\nMr Buhari's Record for Monthly Pay");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan,"ID\tName\tDate\tPlandays\tNextPay\tproductprice");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
 
             for (int i = 0; i < _planInput; i++)
             {
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].Product, pay[i].date, pay[i].MonthlyPay, pay[i].NewMonthlyPay, _productprice);
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].models.Product, pay[i].models.date, pay[i].models.MonthlyPay, pay[i].models.NewMonthlyPay, _productprice);
 
             }
             Console.ReadLine();
@@ -316,11 +238,11 @@ namespace PaymentInstallment
         public static void QuarterlyPayment()
         {
             _productprice = 40000;
-            PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Quarterly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
-            PrintColorMessage(ConsoleColor.Yellow, "But you will pay 50% of the price for the Quarterly pay\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Quarterly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "But you will pay 50% of the price for the Quarterly pay\n");
 
 
-            PrintColorMessage(ConsoleColor.Yellow, "Enter how many months you wish to complete your payment\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter how many months you wish to complete your payment\n");
 
             _planInput = int.Parse(Console.ReadLine());
 
@@ -332,22 +254,22 @@ namespace PaymentInstallment
 
                 Console.WriteLine("Product plan ID : {0} ", i + 1);
 
-                PrintColorMessage(ConsoleColor.Yellow, "Product Name : ");
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Product Name : ");
 
-                pay[i].Product = Console.ReadLine();
+                pay[i].models.Product = Console.ReadLine();
 
-                Console.WriteLine("You have chosen " + pay[i].Product + " and the price is " + FormatAmount(_productprice));
+                Console.WriteLine("You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount(_productprice));
 
-                pay[i].date = DateTime.Today;
-                Console.WriteLine("Today being " + pay[i].date + " you started your payment");
-                PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the Quarterly pay:");
-                pay[i].QuarterlyPay = Convert.ToDouble(Console.ReadLine());
+                pay[i].models.date = DateTime.Today;
+                Console.WriteLine("Today being " + pay[i].models.date + " you started your payment");
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the Quarterly pay:");
+                pay[i].models.QuarterlyPay = Convert.ToDouble(Console.ReadLine());
 
 
-                pay[i].NewQuarterlyPay = _productprice - pay[i].QuarterlyPay * .50;
-                PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].NewQuarterlyPay);
+                pay[i].models.NewQuarterlyPay = _productprice - pay[i].models.QuarterlyPay * .50;
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].models.NewQuarterlyPay);
                 _planInput -= 1;
-                PrintColorMessage(ConsoleColor.Yellow, "\nThe days remaining is " + _planInput--);
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "\nThe days remaining is " + _planInput--);
 
 
             }
@@ -358,7 +280,7 @@ namespace PaymentInstallment
 
             for (int i = 0; i < _planInput; i++)
             {
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].Product, pay[i].date, pay[i].QuarterlyPay, pay[i].NewQuarterlyPay, _productprice);
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].models.Product, pay[i].models.date, pay[i].models.QuarterlyPay, pay[i].models.NewQuarterlyPay, _productprice);
 
             }
             Console.ReadLine();
@@ -368,11 +290,11 @@ namespace PaymentInstallment
         {
 
             _productprice = 60000;
-            PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Quarterly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
-            PrintColorMessage(ConsoleColor.Yellow, "But you will pay 80% of the price for the Yearly pay\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Quarterly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
+             ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "But you will pay 80% of the price for the Yearly pay\n");
 
 
-            PrintColorMessage(ConsoleColor.Yellow, "Enter how many years you wish to complete your payment\n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter how many years you wish to complete your payment\n");
 
             _planInput = int.Parse(Console.ReadLine());
 
@@ -384,33 +306,33 @@ namespace PaymentInstallment
 
                 Console.WriteLine("Product plan ID : {0} ", i + 1);
 
-                PrintColorMessage(ConsoleColor.Yellow, "Product Name : ");
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Product Name : ");
 
-                pay[i].Product = Console.ReadLine();
+                pay[i].models.Product = Console.ReadLine();
 
-                Console.WriteLine("You have chosen " + pay[i].Product + " and the price is " + FormatAmount(_productprice));
+                Console.WriteLine("You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount(_productprice));
 
-                pay[i].date = DateTime.Today;
-                PrintColorMessage(ConsoleColor.Yellow,"Today being " + pay[i].date + " you started your payment");
-                PrintColorMessage(ConsoleColor.Yellow,"Enter the Amount you are willing to start paying for the yearly pay:");
-                pay[i].YearlyPay = Convert.ToDouble(Console.ReadLine());
+                pay[i].models.date = DateTime.Today;
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow,"Today being " + pay[i].models.date + " you started your payment");
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow,"Enter the Amount you are willing to start paying for the yearly pay:");
+                pay[i].models.YearlyPay = Convert.ToDouble(Console.ReadLine());
 
 
-                pay[i].NewYearlyPay = _productprice - pay[i].YearlyPay * .80;
-                Console.WriteLine("The new daily pay is  " + pay[i].NewYearlyPay);
+                pay[i].models.NewYearlyPay = _productprice - pay[i].models.YearlyPay * .80;
+                Console.WriteLine("The new daily pay is  " + pay[i].models.NewYearlyPay);
                 _planInput -= 1;
                 Console.WriteLine("\nThe days remaining is " + _planInput--);
 
 
             }
-            PrintColorMessage(ConsoleColor.Cyan,"\nMr Buhari's Record for Yearly Pay");
-            PrintColorMessage(ConsoleColor.Cyan,"-----------------------------------------------------------------------------------------");
-            PrintColorMessage(ConsoleColor.Cyan, "ID\tName\tDate\tPlandays\tNextPay\tproductprice");
-            PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan,"\nMr Buhari's Record for Yearly Pay");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan,"-----------------------------------------------------------------------------------------");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "ID\tName\tDate\tPlandays\tNextPay\tproductprice");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
 
             for (int i = 0; i < _planInput; i++)
             {
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].Product, pay[i].date, pay[i].QuarterlyPay, pay[i].NewYearlyPay, _productprice);
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].models.Product, pay[i].models.date, pay[i].models.QuarterlyPay, pay[i].models.NewYearlyPay, _productprice);
 
             }
             Console.ReadLine();
@@ -428,17 +350,17 @@ namespace PaymentInstallment
 
 
 
-        // print color message
-        public static void PrintColorMessage(ConsoleColor color, string message)
+       
+
+
+
+
+        public static void Run()
         {
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "***Welcome to Mr Buhari's Installment App***");
+            SelectionPlan.planPayments();
 
-            Console.ForegroundColor = color;
 
-            //tell user its not a number
-            Console.WriteLine(message);
-
-            //reset text color
-            Console.ResetColor();
         }
     }
 
