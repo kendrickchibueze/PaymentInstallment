@@ -26,6 +26,7 @@ namespace PaymentInstallment
 
             _productprice = FixedProductPricesForDifferentPlan.DailyPlanProductprice;
 
+
             ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for daily pay as their prices is fixed at " + FormatAmount((decimal)_productprice) + "\n");
             ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "But you will pay 5% of the price for the daily pay\n");
 
@@ -33,6 +34,8 @@ namespace PaymentInstallment
             ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter how many days you wish to complete your payment, atleast from 3 days and above \n");
 
             _planInput = int.Parse(Console.ReadLine());
+            if (_planInput <= 0)
+                throw new InvalidOperationException("Your input must be greater than 0");
 
             Payment[] pay = new Payment[_planInput];
 

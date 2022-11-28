@@ -10,8 +10,11 @@ namespace PaymentInstallment
     {
         public static void MonthlyPayment()
         {
-            _productprice = 40000;
-            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Monthly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
+            FixedProductPricesForDifferentPlan _productprice;
+
+            _productprice = FixedProductPricesForDifferentPlan.MonthlyPlanProductprice;
+
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Monthly pay as their prices is fixed at " + FormatAmount((decimal)_productprice) + "\n");
             ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "But you will pay 35% of the price for the daily pay\n");
 
 
@@ -31,7 +34,7 @@ namespace PaymentInstallment
 
                 pay[i].models.Product = Console.ReadLine();
 
-                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount(_productprice));
+                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount((decimal)_productprice));
 
                 pay[i].models.date = DateTime.Today;
                 ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].models.date + " you started your payment");
@@ -39,7 +42,7 @@ namespace PaymentInstallment
                 pay[i].models.MonthlyPay = Convert.ToDouble(Console.ReadLine());
 
 
-                pay[i].models.NewMonthlyPay = _productprice - pay[i].models.MonthlyPay * .35;
+                pay[i].models.NewMonthlyPay = (double)_productprice - pay[i].models.MonthlyPay * .35;
                 ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].models.NewMonthlyPay);
                 _planInput -= 1;
                 ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "\nThe days remaining is " + _planInput--);

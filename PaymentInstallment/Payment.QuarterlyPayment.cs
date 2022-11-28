@@ -10,8 +10,11 @@ namespace PaymentInstallment
     {
         public static void QuarterlyPayment()
         {
-            _productprice = 40000;
-            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Quarterly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
+            FixedProductPricesForDifferentPlan _productprice;
+
+            _productprice = FixedProductPricesForDifferentPlan.QuarterlyPlanProductprice;
+
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Quarterly pay as their prices is fixed at " + FormatAmount((decimal)_productprice) + "\n");
             ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "But you will pay 50% of the price for the Quarterly pay\n");
 
 
@@ -31,7 +34,7 @@ namespace PaymentInstallment
 
                 pay[i].models.Product = Console.ReadLine();
 
-                Console.WriteLine("You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount(_productprice));
+                Console.WriteLine("You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount((decimal)_productprice));
 
                 pay[i].models.date = DateTime.Today;
                 Console.WriteLine("Today being " + pay[i].models.date + " you started your payment");
@@ -39,7 +42,7 @@ namespace PaymentInstallment
                 pay[i].models.QuarterlyPay = Convert.ToDouble(Console.ReadLine());
 
 
-                pay[i].models.NewQuarterlyPay = _productprice - pay[i].models.QuarterlyPay * .50;
+                pay[i].models.NewQuarterlyPay = (double)_productprice - pay[i].models.QuarterlyPay * .50;
                 ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].models.NewQuarterlyPay);
                 _planInput -= 1;
                 ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "\nThe days remaining is " + _planInput--);

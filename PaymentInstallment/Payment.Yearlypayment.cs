@@ -12,8 +12,11 @@ namespace PaymentInstallment
         public static void YearlyPayment()
         {
 
-            _productprice = 60000;
-            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Quarterly pay as their prices is fixed at " + FormatAmount(_productprice) + "\n");
+            FixedProductPricesForDifferentPlan _productprice;
+
+            _productprice = FixedProductPricesForDifferentPlan.YearlyPlanProductprice;
+
+            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Quarterly pay as their prices is fixed at " + FormatAmount((decimal)_productprice) + "\n");
             ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "But you will pay 80% of the price for the Yearly pay\n");
 
 
@@ -33,7 +36,7 @@ namespace PaymentInstallment
 
                 pay[i].models.Product = Console.ReadLine();
 
-                Console.WriteLine("You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount(_productprice));
+                Console.WriteLine("You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount((decimal)_productprice));
 
                 pay[i].models.date = DateTime.Today;
                 ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].models.date + " you started your payment");
@@ -41,7 +44,7 @@ namespace PaymentInstallment
                 pay[i].models.YearlyPay = Convert.ToDouble(Console.ReadLine());
 
 
-                pay[i].models.NewYearlyPay = _productprice - pay[i].models.YearlyPay * .80;
+                pay[i].models.NewYearlyPay = (double)_productprice - pay[i].models.YearlyPay * .80;
                 Console.WriteLine("The new daily pay is  " + pay[i].models.NewYearlyPay);
                 _planInput -= 1;
                 Console.WriteLine("\nThe days remaining is " + _planInput--);
