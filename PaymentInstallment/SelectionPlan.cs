@@ -13,7 +13,18 @@ namespace PaymentInstallment
         public static void planPayments()
         {
             ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "Please choose your payment plan: 1[Daily plan], 2[weekly], 3[BiWeekly],4[Monthly],5[Quarterly], 6[Yearly]");
-            _Input = int.Parse(Console.ReadLine());
+            try
+            {
+                _Input = int.Parse(Console.ReadLine());
+
+
+            }
+            catch (FormatException )
+            {
+                ColorValidation.PrintColorMessage(ConsoleColor.Red, "Your Input is not an integer");
+
+            }
+
 
             switch (_Input)
             {
