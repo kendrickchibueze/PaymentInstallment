@@ -43,7 +43,7 @@ namespace PaymentInstallment
                     Payment.YearlyPayment();
                     break;
                 default:
-                    ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "You better start with the daily plan");
+                    ColorValidation.PrintColorMessage(ConsoleColor.Red, "plan invalid, You better start with the daily plan");
                     break;
 
             }
