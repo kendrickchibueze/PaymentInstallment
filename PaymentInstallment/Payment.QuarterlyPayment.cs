@@ -58,7 +58,7 @@ namespace PaymentInstallment
                         {
                             pay[i].models.QuarterlyPay = Convert.ToDouble(Console.ReadLine());
 
-                            if (pay[i].models.QuarterlyPay > (double)_productprice)
+                            if (pay[i].models.QuarterlyPay > (double)_productprice) 
 
                                 throw new PaymentException("Your initial payment cannot be greater than the fixed product price for quarterly pay");
 
@@ -74,12 +74,15 @@ namespace PaymentInstallment
                             QuarterlyPayment();
 
                         }
-
+                       
 
 
                         pay[i].models.NewQuarterlyPay = (double)_productprice - pay[i].models.QuarterlyPay * .50;
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "The new quarterly pay is  " + pay[i].models.NewQuarterlyPay);
+
                         _planInput -= 1;
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "\nThe quarters remaining is " + _planInput--);
 
 
@@ -104,13 +107,11 @@ namespace PaymentInstallment
             catch (PaymentException e)
             {
                 Console.WriteLine(e.Message);
-
                 QuarterlyPayment();
 
             }catch(OverflowException e)
             {
                 Console.WriteLine(e.Message);
-
                 QuarterlyPayment();
             }
 

@@ -107,7 +107,7 @@ namespace PaymentInstallment
 
                     for (int i = 0; i < _planInput; i++)
                     {
-                        Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].models.Product, pay[i].models.date, pay[i].models.DailyPay, pay[i].models.NewDailyPay, pay[i].models.date.AddDays(_planInput));
+                        Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].models.Product, pay[i].models.date, pay[i].models.DailyPay, pay[i].models.NewDailyPay, pay[i].models.date.AddHours(_planInput*24));
 
                     }
                     Console.ReadLine();

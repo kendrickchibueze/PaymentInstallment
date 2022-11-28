@@ -75,12 +75,15 @@ namespace PaymentInstallment
                             YearlyPayment();
 
                         }
-
+                       
 
 
                         pay[i].models.NewYearlyPay = (double)_productprice - pay[i].models.YearlyPay * .80;
+
                         Console.WriteLine("The new daily pay is  " + pay[i].models.NewYearlyPay);
+
                         _planInput -= 1;
+
                         Console.WriteLine("\nThe years remaining is " + _planInput--);
 
 
@@ -105,13 +108,11 @@ namespace PaymentInstallment
             catch (PaymentException e)
             {
                 Console.WriteLine(e.Message);
-
                 YearlyPayment();
 
             }catch(OverflowException e)
             {
                 Console.WriteLine(e.Message);
-
                 YearlyPayment();
             }
 
@@ -120,7 +121,7 @@ namespace PaymentInstallment
 
 
 
-        }
+        }     
 
     }
 }

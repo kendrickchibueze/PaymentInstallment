@@ -27,16 +27,16 @@ namespace PaymentInstallment
                 if (_planInput < _finalLimit)
 
                     throw new PaymentException( "Your payment months must not be less than 3 months");
-
+                     
 
                 else if (_planInput > _finalLimit)
                 {
                     throw new PaymentException("Your payment months must not be greater than 3 months");
-
+                    
 
                 }
 
-
+                  
                 else
                 {
                     Payment[] pay = new Payment[_planInput];
@@ -65,7 +65,9 @@ namespace PaymentInstallment
                             if (pay[i].models.MonthlyPay > (double)_productprice)
 
                                 throw new PaymentException( "You can't pay more than the fixed product price for this installment plan");
+
                             else if (pay[i].models.MonthlyPay <= 0)
+
                                 throw new PaymentException("You can't pay 0 or a value less than it in this installment plan");
 
 
@@ -77,7 +79,7 @@ namespace PaymentInstallment
                             MonthlyPayment();
                         }
 
-
+                      
 
 
                         pay[i].models.NewMonthlyPay = (double)_productprice - pay[i].models.MonthlyPay * .35;
@@ -109,7 +111,6 @@ namespace PaymentInstallment
             catch (PaymentException e)
             {
                 Console.WriteLine(e.Message);
-
                 MonthlyPayment();
 
 
@@ -117,7 +118,6 @@ namespace PaymentInstallment
             catch(OverflowException e)
             {
                 Console.WriteLine(e.Message);
-
                 MonthlyPayment();
             }
 

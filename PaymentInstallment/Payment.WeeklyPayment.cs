@@ -76,15 +76,12 @@ namespace PaymentInstallment
                             WeeklyPayment();
 
                         }
-
+                        
 
 
                         pay[i].models.NewWeeklyPay = (double)_productprice - pay[i].models.WeeklyPay * .15;
-
                         ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "The new weekly pay is  " + pay[i].models.NewWeeklyPay);
-
                         _planInput -= 1;
-
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "\nThe weeks remaining is " + _planInput--);
 
 
@@ -107,13 +104,11 @@ namespace PaymentInstallment
             catch (PaymentException e)
             {
                 Console.WriteLine(e.Message);
-
                 WeeklyPayment();
 
             }catch(OverflowException e)
             {
                 Console.WriteLine(e.Message);
-
                 WeeklyPayment();
             }
 
