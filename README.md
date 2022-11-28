@@ -11,7 +11,7 @@
 
 * C# 👓
 
-*.NET 6
+* .NET 6
 
 ## Implementation😎
 * Object oriented programming in C#.
