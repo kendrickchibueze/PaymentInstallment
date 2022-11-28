@@ -1,5 +1,5 @@
 # Installment Payment Tracker in C#👓👓🤞🤷‍♀️
-*This application is an answer to Mr. Buhari's quest to allow installment payments. Since he noticed that he is loosing his customers because he does not allow installmental payments, this application was built help him. This console application enables him to solve the hitches of calculating and keeping track of payments done by his customers. The preferred payment plans used in this applications are **-dailyplan, weeklyplan,bi-weeklyplan,monthlyplan, 6-month plan, and one year plan***.
+*This application is an answer to Mr. Buhari's quest to allow installment payments. Since he noticed that he is loosing his customers because he does not allow installmental payments, this application was built to  help him. This console application enables him to solve the hitches of calculating and keeping track of payments done by his customers. The preferred payment plans used in this applications are **-dailyplan, weeklyplan,bi-weeklyplan,monthlyplan, 6-month plan, and one year plan***.
 
 * A pragmatic attempt to build this application produces the following output:
 
@@ -8,7 +8,9 @@
 
 ## Technologies used✌
 * Microsoft visual studio 2022
-* C#👓
+
+* C# 👓
+
 *.NET 6
 
 ## Implementation😎
