@@ -44,6 +44,7 @@ namespace PaymentInstallment
                     break;
                 default:
                     ColorValidation.PrintColorMessage(ConsoleColor.Red, "plan invalid, You better start with the daily plan");
+                    planPayments();
                     break;
 
             }

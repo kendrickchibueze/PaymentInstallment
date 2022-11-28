@@ -11,7 +11,7 @@ namespace PaymentInstallment
     {
         //fields
         private static int _planInput;
-        private static int _productprice;
+        private  const int _finalLimit = 3;
         private static CultureInfo _enculture = new CultureInfo("en-US");
 
 
@@ -28,53 +28,101 @@ namespace PaymentInstallment
 
 
             ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for daily pay as their prices is fixed at " + FormatAmount((decimal)_productprice) + "\n");
+
             ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "But you will pay 5% of the price for the daily pay\n");
 
 
-            ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter how many days you wish to complete your payment, atleast from 3 days and above \n");
+            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "Enter how many days you wish to complete your payment, this cannot be less than or greater than 3 days \n");
 
             _planInput = int.Parse(Console.ReadLine());
-            if (_planInput <= 0)
-                throw new InvalidOperationException("Your input must be greater than 0");
-
-            Payment[] pay = new Payment[_planInput];
-
-            for (int i = 0; i < _planInput; i++)
+            try
             {
-                pay[i] = new Payment();
+                if (_planInput < _finalLimit)
 
-                Console.WriteLine("Product plan ID : {0} ", i + 1);
+                    throw new PaymentException("Your payment days must not be less than 3 days");
 
-                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Product Name : ");
+                else if (_planInput > _finalLimit)
 
-                pay[i].models.Product = Console.ReadLine();
+                    throw new PaymentException("Your payment days  must not be greater than 3 days");
 
-                Console.WriteLine("You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount((decimal)_productprice));
+                else
+                {
+                    Payment[] pay = new Payment[_planInput];
 
-                pay[i].models.date = DateTime.Today;
-                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].models.date + " you started your payment");
-                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the daily pay:");
-                pay[i].models.DailyPay = Convert.ToDouble(Console.ReadLine());
+                    for (int i = 0; i < _planInput; i++)
+                    {
+                        pay[i] = new Payment();
+
+                        Console.WriteLine("Product plan ID : {0} ", i + 1);
+
+                        ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Product Name : ");
+
+                        pay[i].models.Product = Console.ReadLine();
+
+                        Console.WriteLine("You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount((decimal)_productprice));
+
+                        pay[i].models.date = DateTime.Today;
+
+                        ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].models.date + " you started your payment");
+
+                        ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the daily pay:");
+                        try
+                        {
+                            pay[i].models.DailyPay = Convert.ToDouble(Console.ReadLine());
+                            if (pay[i].models.DailyPay >= (double)_productprice)
+
+                                throw new PaymentException("You can't pay more than the fixed product price for this installment plan");
+
+                        }
+                        catch (PaymentException e)
+                        {
+                            Console.WriteLine(e.Message);
+                            DailyPayment();
+
+                        }
+
+                     
 
 
-                pay[i].models.NewDailyPay = (double)_productprice - pay[i].models.DailyPay * .05;
-                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].models.NewDailyPay);
-                _planInput -= 1;
-                ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "\nThe days remaining is " + _planInput--);
+                        pay[i].models.NewDailyPay = (double)_productprice - pay[i].models.DailyPay * .05;
 
+                        ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].models.NewDailyPay);
+
+                        _planInput -= 1;
+
+                        ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "\nThe days remaining is " + _planInput--);
+
+
+                    }
+                    ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "\nMr Buhari's Record for Daily Pay");
+                    ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "---------------------------------------------------------------------------------------");
+                    ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "ID\tName\tDateStart\tInitialPay\tNextPay\tEndDate");
+                    ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "---------------------------------------------------------------------------------------");
+
+                    for (int i = 0; i < _planInput; i++)
+                    {
+                        Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].models.Product, pay[i].models.date, pay[i].models.DailyPay, pay[i].models.NewDailyPay, pay[i].models.date.AddDays(_planInput));
+
+                    }
+                    Console.ReadLine();
+
+                }
 
             }
-            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "\nMr Buhari's Record for Daily Pay");
-            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
-            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "ID\tName\tDateStart\t\tNextPay\tproductprice\tEndDate");
-            ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "-----------------------------------------------------------------------------------------");
-
-            for (int i = 0; i < _planInput; i++)
+            catch(PaymentException e)
             {
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", i + 1, pay[i].models.Product, pay[i].models.date, pay[i].models.DailyPay, pay[i].models.NewDailyPay, _productprice);
+                Console.WriteLine(e.Message);
+                DailyPayment();
 
             }
-            Console.ReadLine();
+            catch(OverflowException e)
+            {
+                Console.WriteLine(e.Message);
+                DailyPayment();
+            }
+            
+
+           
 
         }
 

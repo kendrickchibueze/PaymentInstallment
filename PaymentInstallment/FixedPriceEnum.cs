@@ -14,7 +14,7 @@ namespace PaymentInstallment
         BiweeklyPlanProductprice = 20000,
         MonthlyPlanProductprice = 40000,
         QuarterlyPlanProductprice = 60000,
-        YearlyPlanProductprice = 80000
+        YearlyPlanProductprice = 800000
     }
 
     internal class FixedPriceEnum
