@@ -82,11 +82,12 @@ namespace PaymentInstallment
                         catch (PaymentException e)
                         {
                             Console.WriteLine(e.Message);
+
                             DailyPayment();
 
                         }
 
-
+                     
 
 
                         pay[i].models.NewDailyPay = (double)_productprice - pay[i].models.DailyPay * .05;
@@ -117,23 +118,21 @@ namespace PaymentInstallment
             catch(PaymentException e)
             {
                 Console.WriteLine(e.Message);
-
                 DailyPayment();
 
             }
             catch(OverflowException e)
             {
                 Console.WriteLine(e.Message);
-
                 DailyPayment();
             }
+            
 
-
-
+           
 
         }
 
-
+     
 
 
         public static string FormatAmount(decimal amt)
