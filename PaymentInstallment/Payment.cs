@@ -69,9 +69,14 @@ namespace PaymentInstallment
                         try
                         {
                             pay[i].models.DailyPay = Convert.ToDouble(Console.ReadLine());
+
                             if (pay[i].models.DailyPay >= (double)_productprice)
 
                                 throw new PaymentException("You can't pay more than the fixed product price for this installment plan");
+
+                            else if (pay[i].models.DailyPay <= 0)
+
+                                throw new PaymentException("You can't pay 0 or a value less than it in this installment plan");
 
                         }
                         catch (PaymentException e)
@@ -81,7 +86,7 @@ namespace PaymentInstallment
 
                         }
 
-                     
+
 
 
                         pay[i].models.NewDailyPay = (double)_productprice - pay[i].models.DailyPay * .05;
@@ -112,21 +117,23 @@ namespace PaymentInstallment
             catch(PaymentException e)
             {
                 Console.WriteLine(e.Message);
+
                 DailyPayment();
 
             }
             catch(OverflowException e)
             {
                 Console.WriteLine(e.Message);
+
                 DailyPayment();
             }
-            
 
-           
+
+
 
         }
 
-     
+
 
 
         public static string FormatAmount(decimal amt)

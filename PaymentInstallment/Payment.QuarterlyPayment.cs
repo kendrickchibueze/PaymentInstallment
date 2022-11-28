@@ -49,23 +49,32 @@ namespace PaymentInstallment
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount((decimal)_productprice));
 
                         pay[i].models.date = DateTime.Today;
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "Today being " + pay[i].models.date + " you started your payment");
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the Quarterly pay:");
 
                         try
                         {
                             pay[i].models.QuarterlyPay = Convert.ToDouble(Console.ReadLine());
-                            if (pay[i].models.QuarterlyPay > (double)_productprice) 
+
+                            if (pay[i].models.QuarterlyPay > (double)_productprice)
+
                                 throw new PaymentException("Your initial payment cannot be greater than the fixed product price for quarterly pay");
+
+                            else if (pay[i].models.QuarterlyPay <= 0)
+
+                                throw new PaymentException("You can't pay 0 or a value less than it in this installment plan");
 
                         }
                         catch (PaymentException e)
                         {
                             Console.WriteLine(e.Message);
+
                             QuarterlyPayment();
 
                         }
-                       
+
 
 
                         pay[i].models.NewQuarterlyPay = (double)_productprice - pay[i].models.QuarterlyPay * .50;
@@ -95,11 +104,13 @@ namespace PaymentInstallment
             catch (PaymentException e)
             {
                 Console.WriteLine(e.Message);
+
                 QuarterlyPayment();
 
             }catch(OverflowException e)
             {
                 Console.WriteLine(e.Message);
+
                 QuarterlyPayment();
             }
 

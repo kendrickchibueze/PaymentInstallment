@@ -16,6 +16,7 @@ namespace PaymentInstallment
 
             _productprice = FixedProductPricesForDifferentPlan.BiweeklyPlanProductprice;
 
+
             ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Choose different products for  Biweekly pay as their prices is fixed at " + FormatAmount((decimal)_productprice) + "\n");
             ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "But you will pay 25% of the price for the Bi weekly pay\n");
 
@@ -51,21 +52,29 @@ namespace PaymentInstallment
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount((decimal)_productprice));
 
                         pay[i].models.date = DateTime.Today;
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].models.date + " you started your payment");
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the Bi weekly pay:");
-                     
+
 
                         try
                         {
                             pay[i].models.BiWeeklyPay = Convert.ToDouble(Console.ReadLine());
+
                             if (pay[i].models.BiWeeklyPay >= (double)_productprice)
 
                                 throw new PaymentException("You can't pay more than the fixed product price for this installment plan");
+
+                            else if (pay[i].models.BiWeeklyPay <= 0)
+
+                                throw new PaymentException("You can't pay 0 or a value less than it in this installment plan");
 
                         }
                         catch (PaymentException e)
                         {
                             Console.WriteLine(e.Message);
+
                             BiWeeklyPayment();
 
                         }
@@ -74,7 +83,9 @@ namespace PaymentInstallment
                         pay[i].models.NewBiWeeklyPay = (double)_productprice - pay[i].models.BiWeeklyPay * .25;
 
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "The new daily pay is  " + pay[i].models.NewBiWeeklyPay);
+
                         _planInput -= 1;
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "\nThe days remaining is " + _planInput--);
 
 
@@ -98,11 +109,13 @@ namespace PaymentInstallment
             catch (PaymentException e)
             {
                 Console.WriteLine(e.Message);
+
                 BiWeeklyPayment();
 
             }catch(OverflowException e)
             {
                 Console.WriteLine(e.Message);
+
                 BiWeeklyPayment();
             }
 

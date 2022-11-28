@@ -51,29 +51,40 @@ namespace PaymentInstallment
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount((decimal)_productprice));
 
                         pay[i].models.date = DateTime.Today;
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].models.date + " you started your payment");
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the weekly pay:");
 
                         try
                         {
                             pay[i].models.WeeklyPay = Convert.ToDouble(Console.ReadLine());
+
                             if (pay[i].models.WeeklyPay > (double)_productprice)
 
                                 throw new PaymentException("You can't pay more than the fixed product price for this installment plan");
+
+                            else if(pay[i].models.WeeklyPay <=0)
+
+                                throw new PaymentException("You can't pay 0 or a value less than it in this installment plan");
 
                         }
                         catch (PaymentException e)
                         {
                             Console.WriteLine(e.Message);
+
                             WeeklyPayment();
 
                         }
-                        
+
 
 
                         pay[i].models.NewWeeklyPay = (double)_productprice - pay[i].models.WeeklyPay * .15;
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Cyan, "The new weekly pay is  " + pay[i].models.NewWeeklyPay);
+
                         _planInput -= 1;
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "\nThe weeks remaining is " + _planInput--);
 
 
@@ -85,7 +96,7 @@ namespace PaymentInstallment
 
                     for (int i = 0; i < _planInput; i++)
                     {
-                        Console.WriteLine("{0}\t{1}\t{2}\t{3}\t\t\t{4}\t{5}", i + 1, pay[i].models.Product, pay[i].models.date, pay[i].models.WeeklyPay, pay[i].models.NewWeeklyPay, pay[i].models.date.AddDays(_planInput*7));
+                        Console.WriteLine("{0}\t{1}\t{2}\t{3}\t\t{4}\t{5}", i + 1, pay[i].models.Product, pay[i].models.date, pay[i].models.WeeklyPay, pay[i].models.NewWeeklyPay, pay[i].models.date.AddDays(_planInput*7));
 
                     }
                     Console.ReadLine();
@@ -96,11 +107,13 @@ namespace PaymentInstallment
             catch (PaymentException e)
             {
                 Console.WriteLine(e.Message);
+
                 WeeklyPayment();
 
             }catch(OverflowException e)
             {
                 Console.WriteLine(e.Message);
+
                 WeeklyPayment();
             }
 

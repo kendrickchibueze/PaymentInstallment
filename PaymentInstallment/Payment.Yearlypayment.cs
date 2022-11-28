@@ -50,24 +50,32 @@ namespace PaymentInstallment
                         Console.WriteLine("You have chosen " + pay[i].models.Product + " and the price is " + FormatAmount((decimal)_productprice));
 
                         pay[i].models.date = DateTime.Today;
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Today being " + pay[i].models.date + " you started your payment");
+
                         ColorValidation.PrintColorMessage(ConsoleColor.Yellow, "Enter the Amount you are willing to start paying for the yearly pay:");
 
                         try
                         {
                             pay[i].models.YearlyPay = Convert.ToDouble(Console.ReadLine());
+
                             if (pay[i].models.YearlyPay > (double)_productprice)
 
                                 throw new PaymentException("You can't pay more than the fixed product price for this installment plan");
+
+                            else if (pay[i].models.YearlyPay <= 0)
+
+                                throw new PaymentException("You can't pay 0 or a value less than it in this installment plan");
 
                         }
                         catch (PaymentException e)
                         {
                             Console.WriteLine(e.Message);
+
                             YearlyPayment();
 
                         }
-                       
+
 
 
                         pay[i].models.NewYearlyPay = (double)_productprice - pay[i].models.YearlyPay * .80;
@@ -97,11 +105,13 @@ namespace PaymentInstallment
             catch (PaymentException e)
             {
                 Console.WriteLine(e.Message);
+
                 YearlyPayment();
 
             }catch(OverflowException e)
             {
                 Console.WriteLine(e.Message);
+
                 YearlyPayment();
             }
 
@@ -110,7 +120,7 @@ namespace PaymentInstallment
 
 
 
-        }     
+        }
 
     }
 }
